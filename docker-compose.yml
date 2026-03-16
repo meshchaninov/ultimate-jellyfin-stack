@@ -8,9 +8,7 @@ networks:
   starr:
     driver: bridge
   jellystat:
-    external: true
-  gluetun_network:
-    external: true
+    driver: bridge
       
 services:
   # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK
@@ -53,8 +51,6 @@ services:
     networks:
       proxy:
       starr:
-      gluetun_network:
-        ipv4_address: ${RADARR_IPV4}
     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
@@ -73,8 +69,6 @@ services:
     networks:
       proxy:
       starr:
-      gluetun_network:
-        ipv4_address: ${SONARR_IPV4}
     restart: unless-stopped
   
   #Readarr - Used to download books
