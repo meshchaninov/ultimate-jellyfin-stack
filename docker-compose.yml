@@ -256,7 +256,7 @@ services:
     networks:
       - proxy
       - starr
-    user: ${PUID}:${PGID}
+    user: ${PUID:-1000}:${PGID:-1000}
     restart: unless-stopped
     environment:
       - PUID=${PUID}
