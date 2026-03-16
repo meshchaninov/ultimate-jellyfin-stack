@@ -179,21 +179,6 @@ services:
       retries: 3
     restart: unless-stopped
     
-  #Flaresolerr - Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
-  flaresolverr:
-    # DockerHub mirror flaresolverr/flaresolverr:latest
-    image: alexfozor/flaresolverr:pr-1300-experimental
-    container_name: flaresolverr
-    network_mode: "service:gluetun"
-    environment:
-      - LOG_LEVEL=info
-      - LOG_HTML=false
-      - CAPTCHA_SOLVER=none
-      - TZ=${TZ}
-      - LANG=en_GB
-      - DRIVER=nodriver
-    restart: unless-stopped
-      
   #Qbittorent - torrenting software
   #
   #You can also use RuTorrent, Transmisson or Deluge
@@ -345,30 +330,6 @@ services:
     networks:
       - starr
 
-  dispatcharr:
-    image: ghcr.io/dispatcharr/dispatcharr:latest
-    container_name: dispatcharr
-    network_mode: "service:gluetun"
-    volumes:
-      - ${BASE_PATH}/dispatcharr/data:/data
-    environment:
-      - DISPATCHARR_ENV=aio
-      - REDIS_HOST=localhost
-      - CELERY_BROKER_URL=redis://localhost:6379/0
-      - DISPATCHARR_LOG_LEVEL=info
-    # Optional for hardware acceleration
-    devices:
-      - /dev/dri:/dev/dri  # For Intel/AMD GPU acceleration (VA-API)
-    # Uncomment the following lines for NVIDIA GPU support
-    # NVidia GPU support (requires NVIDIA Container Toolkit)
-    #deploy:
-    #  resources:
-    #      reservations:
-    #          devices:
-    #              - driver: nvidia
-    #                count: all
-    #                capabilities: [gpu]
-      
   gluetun:
     image: qmcgaw/gluetun:v3
     container_name: gluetun
@@ -401,10 +362,8 @@ services:
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
       - 5757:5757/tcp # kapowarr
-      - 8191:8191/tcp # flaresolverr
       - 9696:9696/tcp # prowlarr
       - 7474:7474/tcp # autobrr
-      - 9191:9191 # dispatcharr
       - 6767:6767 # bazarr
     networks:
       - starr

@@ -19,7 +19,6 @@ This Plex Stack includes the following services:
 - **[Tdarr](https://github.com/HaveAGitGat/Tdarr):** Pre-transcodes your media to decrease file sizes
 - **[Bazarr](https://github.com/linuxserver/docker-bazarr):** Subtitle management for movies and TV shows.
 - **[Autobrr](https://github.com/autobrr/autobrr):** Used to grab torrents immediately as they are released.
-- **[Flaresolverr](https://github.com/AlexFozor/FlareSolverr/tree/drission-page):** Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
 - **[Dozzle](https://github.com/amir20/dozzle):** Used to view the logs of any container.
 - **[Wizarr](https://github.com/wizarrrr/wizarr):** Used to create links that can be sent to users so they can be invited to your media server.
 - **[Homarr](https://github.com/homarr-labs/homarr):** Used as a dashboard for docker containers with integrations for the *arr, torrent, and Jellyfin apps.
@@ -28,7 +27,6 @@ This Plex Stack includes the following services:
 - **[Janitorr](https://github.com/Schaka/janitorr):** Removes untagged media when it reaches a certain age, contains functionality for "Leaving Soon" content too.
 - **[Profilarr](https://github.com/Dictionarry-Hub/profilarr):** Used as a quality profile management tool that configures your radarr/sonarr installations
 - **[Homarr](https://github.com/homarr-labs/homarr):** A homepage creation service which can connect directly to other services in this stack
-- **[Dispatacharr](https://github.com/Dispatcharr/Dispatcharr):** A IPTV tuner with many tools on managing channels, EPGs, logos etc.
 - **[Unpackerr](https://github.com/Unpackerr/unpackerr):** A tool which handles all your torrents which come as archive files
 - **[Cross seed](https://github.com/cross-seed/cross-seed):** A service which takes your finished torrents and seeds them across your other trackers (check tracker TOS)
 
