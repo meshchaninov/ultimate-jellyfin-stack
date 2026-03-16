@@ -2,9 +2,7 @@ version: "3.0"
 
 networks:
   proxy:
-    external: true
-  jellyfin_default:
-    external: true
+    driver: bridge
   starr:
     driver: bridge
   jellystat:
