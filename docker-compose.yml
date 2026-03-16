@@ -6,7 +6,7 @@ networks:
   jellyfin_default:
     external: true
   starr:
-    external: true
+    driver: bridge
   jellystat:
     external: true
   gluetun_network:
