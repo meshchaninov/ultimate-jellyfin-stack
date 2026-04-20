@@ -44,6 +44,7 @@ services:
     volumes:
       - ${BASE_PATH}/radarr/config:/config
       - ${MEDIA_SHARE}:/data #Access to the entire /media
+      - ${MEDIA_SHARE}/temp_downloads:/downloads
     ports:
       - 7878:7878
     networks:
@@ -62,6 +63,7 @@ services:
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
       - ${MEDIA_SHARE}:/data #Access to the entire /media
+      - ${MEDIA_SHARE}/temp_downloads:/downloads
     ports:
       - 8989:8989
     networks:
@@ -80,6 +82,7 @@ services:
     volumes:
       - ${BASE_PATH}/readarr/config:/config
       - ${MEDIA_SHARE}:/data
+      - ${MEDIA_SHARE}/temp_downloads:/downloads
     ports:
       - 8787:8787
     networks:
@@ -98,6 +101,7 @@ services:
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
       - ${MEDIA_SHARE}:/data
+      - ${MEDIA_SHARE}/temp_downloads:/downloads
     ports:
       - 8686:8686
     networks:
@@ -135,6 +139,8 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/prowlarr/config:/config
+    ports:
+      - 9696:9696
     restart: unless-stopped
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed
@@ -156,7 +162,7 @@ services:
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
     container_name: seerr
-    init: true
+    user: "1001:1001"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -190,12 +196,15 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - WEBUI_PORT=8080
+      - WEBUI_PORT=8081
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
       - UMASK=002
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
       - ${MEDIA_SHARE}:/data
+      - ${MEDIA_SHARE}/temp_downloads:/downloads
+    ports:
+      - 8081:8081
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -246,6 +255,8 @@ services:
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
       - ${MEDIA_SHARE}:/data
+    ports:
+      - "6767:6767"
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
@@ -392,7 +403,7 @@ services:
           api_key: "$READARR_KEY"
      ## qBitorrent
      QBITTORRENT: >
-        - base_url: "http://gluetun:8080"
+        - base_url: "http://qbittorrent:8081"
           username: "$QBIT_USER"
           password: "$QBIT_PASS"
     networks:
